@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SweetShop.Domain.Entities.Product>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Products</h2>
+        <a asp-action="Create" class="btn btn-primary">Add New Product</a>
+    </div>
+
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Name</th>
+                <th>Unit Price</th>
+                <th>Stock</th>
+                <th>Image</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.Name</td>
+                    <td>@p.UnitPrice.ToString("0.00")</td>
+                    <td>@p.StockQuantity</td>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(p.ImagePath))
+                        {
+                            <img src="@p.ImagePath" alt="@p.Name" style="height:48px;border-radius:6px;" />
+                        }
+                    </td>
+                    <td>@p.CreatedAt.ToLocalTime().ToString("MM/dd/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
